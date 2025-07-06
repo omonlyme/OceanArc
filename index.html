@@ -1289,36 +1289,38 @@
             '<i class="fas fa-spinner fa-spin"></i> Processing...';
 
           // Send data to server
-          fetch("https://oceanarc-data.infy.uk/save_contact.php", {
+          fetch("https://your-infinityfree-domain.epizy.com/save_contact.php", {
             method: "POST",
-            body: new FormData(document.getElementById("inquiryForm")),
+            body: formData,
+            headers: {
+              Accept: "application/json",
+            },
           })
-            .then((response) => response.json())
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
             .then((data) => {
               if (data.success) {
                 formMessage.textContent =
                   "Thank you! Your inquiry has been submitted successfully.";
                 formMessage.className = "form-message success";
-                formMessage.style.display = "block";
                 form.reset();
               } else {
-                formMessage.textContent =
-                  data.message || "Error submitting form. Please try again.";
-                formMessage.className = "form-message error";
-                formMessage.style.display = "block";
+                throw new Error(data.message || "Server returned an error");
               }
             })
             .catch((error) => {
-              formMessage.textContent =
-                "Network error. Please try again later.";
+              formMessage.textContent = "Error: " + error.message;
               formMessage.className = "form-message error";
-              formMessage.style.display = "block";
             })
             .finally(() => {
+              formMessage.style.display = "block";
               submitBtn.disabled = false;
               submitBtn.textContent = "Submit Inquiry";
 
-              // Hide message after 5 seconds
               setTimeout(() => {
                 formMessage.style.display = "none";
               }, 5000);
