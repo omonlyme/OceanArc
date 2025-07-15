@@ -3,29 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OceanArc Exim - Admin Panel</title>
+  <title>Admin Panel - OceanArc Exim</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    :root {
-      --primary-color: #0056b3;
-      --secondary-color: #003366;
-      --accent-color: #ff9900;
-      --light-color: #f8f9fa;
-      --dark-color: #343a40;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    body {
-      background-color: #f5f7fa;
-      color: #333;
-    }
-    
+    /* Admin-specific styles */
     .admin-container {
       display: flex;
       min-height: 100vh;
@@ -62,26 +44,10 @@
       color: white;
     }
     
-    .sidebar-menu li a i {
-      margin-right: 10px;
-      width: 20px;
-      text-align: center;
-    }
-    
     .main-content {
       flex: 1;
       padding: 20px;
-    }
-    
-    .header {
-      background-color: white;
-      padding: 15px 20px;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      background-color: #f5f7fa;
     }
     
     .card {
@@ -92,67 +58,22 @@
       margin-bottom: 20px;
     }
     
-    .card-title {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-      color: var(--secondary-color);
-      padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
-    }
-    
     table {
       width: 100%;
       border-collapse: collapse;
     }
     
-    table th, table td {
-      padding: 12px 15px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-    }
-    
     table th {
       background-color: #f8f9fa;
       font-weight: 600;
+      text-align: left;
+      padding: 12px 15px;
+      border-bottom: 1px solid #eee;
     }
     
-    .btn {
-      padding: 8px 15px;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-weight: 500;
-    }
-    
-    .btn-primary {
-      background-color: var(--primary-color);
-      color: white;
-    }
-    
-    .btn-danger {
-      background-color: #dc3545;
-      color: white;
-    }
-    
-    .form-group {
-      margin-bottom: 15px;
-    }
-    
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 500;
-    }
-    
-    .form-control {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-    
-    textarea.form-control {
-      min-height: 120px;
+    table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #eee;
     }
     
     .badge {
@@ -178,7 +99,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <div class="sidebar-header">
-        <h2>OceanArc Exim</h2>
+        <h3>OceanArc Exim</h3>
         <p>Admin Panel</p>
       </div>
       <ul class="sidebar-menu">
@@ -187,75 +108,73 @@
         <li><a href="#blog-posts"><i class="fas fa-newspaper"></i> Blog Posts</a></li>
         <li><a href="#add-post"><i class="fas fa-plus"></i> Add New Post</a></li>
         <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
-        <li><a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
       </ul>
     </div>
     
     <!-- Main Content -->
     <div class="main-content">
-      <div class="header">
-        <h3>Admin Dashboard</h3>
-        <div>Welcome, Admin</div>
+      <div class="card">
+        <h2>Dashboard</h2>
+        <p>Welcome back, Admin!</p>
       </div>
       
-      <!-- Dashboard Stats -->
-      <div class="row">
-        <div class="card">
-          <div class="card-title">Recent Inquiries</div>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Company</th>
-                <th>Email</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="inquiriesTable">
-              <!-- Inquiries will be loaded here -->
-            </tbody>
-          </table>
-        </div>
-        
-        <div class="card">
-          <div class="card-title">Add New Blog Post</div>
-          <form id="blogPostForm">
-            <div class="form-group">
-              <label for="postTitle">Title</label>
-              <input type="text" id="postTitle" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label for="postContent">Content</label>
-              <textarea id="postContent" class="form-control" required></textarea>
-            </div>
-            <div class="form-group">
-              <label for="postImage">Featured Image</label>
-              <input type="file" id="postImage" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">Publish Post</button>
-          </form>
-        </div>
+      <div class="card">
+        <h3>Recent Inquiries</h3>
+        <table id="inquiriesTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Company</th>
+              <th>Email</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Inquiries loaded via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="card">
+        <h3>Add New Blog Post</h3>
+        <form id="blogPostForm">
+          <div class="form-group">
+            <label for="postTitle">Title</label>
+            <input type="text" id="postTitle" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="postContent">Content</label>
+            <textarea id="postContent" class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="postImage">Featured Image URL</label>
+            <input type="text" id="postImage" class="form-control">
+          </div>
+          <button type="submit" class="btn">Publish Post</button>
+        </form>
       </div>
     </div>
   </div>
 
+  <script src="js/admin.js"></script>
   <script>
-    // This would be connected to your backend
-    // Sample code to load inquiries
+    // Admin panel functionality
     async function loadInquiries() {
       try {
-        const response = await fetch('https://your-api-endpoint/inquiries');
+        const response = await fetch('https://your-infinityfree-domain.epizy.com/api/inquiries', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+          }
+        });
         const data = await response.json();
         
-        const tableBody = document.getElementById('inquiriesTable');
-        tableBody.innerHTML = '';
-        
-        data.forEach(inquiry => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
+        const tableBody = document.querySelector('#inquiriesTable tbody');
+        tableBody.innerHTML = data.map(inquiry => `
+          <tr>
             <td>${inquiry.id}</td>
             <td>${inquiry.name}</td>
             <td>${inquiry.company}</td>
@@ -263,37 +182,34 @@
             <td>${new Date(inquiry.date).toLocaleDateString()}</td>
             <td><span class="badge ${inquiry.status === 'new' ? 'badge-warning' : 'badge-success'}">${inquiry.status}</span></td>
             <td>
-              <button class="btn btn-primary">View</button>
-              <button class="btn btn-danger">Delete</button>
+              <button class="btn" onclick="viewInquiry(${inquiry.id})">View</button>
+              <button class="btn btn-danger" onclick="deleteInquiry(${inquiry.id})">Delete</button>
             </td>
-          `;
-          tableBody.appendChild(row);
-        });
+          </tr>
+        `).join('');
       } catch (error) {
         console.error('Error loading inquiries:', error);
       }
     }
     
-    // Load initial data
-    loadInquiries();
-    
     // Handle blog post submission
     document.getElementById('blogPostForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
-      const formData = new FormData();
-      formData.append('title', document.getElementById('postTitle').value);
-      formData.append('content', document.getElementById('postContent').value);
-      
-      const imageInput = document.getElementById('postImage');
-      if (imageInput.files[0]) {
-        formData.append('image', imageInput.files[0]);
-      }
+      const formData = {
+        title: document.getElementById('postTitle').value,
+        content: document.getElementById('postContent').value,
+        image: document.getElementById('postImage').value
+      };
       
       try {
-        const response = await fetch('https://your-api-endpoint/posts', {
+        const response = await fetch('https://your-infinityfree-domain.epizy.com/api/posts', {
           method: 'POST',
-          body: formData
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+          },
+          body: JSON.stringify(formData)
         });
         
         const result = await response.json();
@@ -306,6 +222,19 @@
         alert('Error publishing post. Please try again.');
       }
     });
+    
+    // Logout functionality
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+      localStorage.removeItem('adminToken');
+      window.location.href = 'admin-login.html';
+    });
+    
+    // Check authentication on page load
+    if(!localStorage.getItem('adminToken')) {
+      window.location.href = 'admin-login.html';
+    } else {
+      loadInquiries();
+    }
   </script>
 </body>
 </html>
